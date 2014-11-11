@@ -1,0 +1,1 @@
+// Copy and paste this empty js as a template

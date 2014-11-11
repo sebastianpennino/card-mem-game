@@ -1,0 +1,45 @@
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+body{
+  padding: 50px 0;
+}
+
+/* ==========================================================================
+   Styles for Memory Game
+   ========================================================================== */
+#deck{
+  font-size: 6px; /* Im using this to set the base size of the EMs, thus afecting the card scale */
+  overflow: hidden;
+}
+#deck .card{
+  display: block;
+  float: left;
+}
+#deck .card .front{
+  width: 8em;
+  height: 11.4em;
+  margin: 0 0.6em 0.6em 0;
+  display: block;
+  border: 1px solid black;
+  background-color: #fff;
+  border-radius: 0.8em;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  text-align: center;
+  line-height: 11.4em;
+  font-size: 2em;
+  text-decoration: none;
+  color: white;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ef2d33,
+    #ef2d33 10px,
+    #f9a899 10px,
+    #f9a899 20px
+  );
+}
+
+#deck .card.flip .front{
+  background: rgb(238,238,238); /* Old browsers */
+  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+}
