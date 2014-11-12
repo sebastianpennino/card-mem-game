@@ -1,6 +1,6 @@
 /**
  * myMemGame utils
- * Defines commonly used functions. A small "libary" of utilities.
+ * Defines commonly used functions. A small "library" of utilities.
  * 
  * Note:
  * Im using the object literal notation because all those methods
