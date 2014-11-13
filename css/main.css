@@ -40,19 +40,24 @@ body{
 }
 
 #deck .card span{
-  opacity: 0;
+  display: none;
 }
 #deck .card.flipped span,
-#deck .card.found span
+#deck .card.founded span
 {
-  opacity: 1;
-}
-#deck .card.found .front{
-  border: 1px solid blue;
-  color: blue;
+  display: inline;
 }
 
+
+
 #deck .card.flipped .front{
-  background: rgb(238,238,238); /* Old browsers */
-  background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+  border: 1px solid rgb(45,87,176);
+  color: black;
+  background: rgb(30,87,153); /* Old browsers */
+  background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+}
+#deck .card.founded .front{
+  border: 2px solid black;
+  background: rgb(188,188,188); /* Old browsers */
+  background: linear-gradient(to bottom,  rgb(188,188,188) 0%,rgb(203,203,203) 50%,rgb(198,198,198) 51%,rgb(224,224,224) 100%); /* W3C */
 }
