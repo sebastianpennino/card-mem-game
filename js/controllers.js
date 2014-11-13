@@ -3,7 +3,29 @@
   
   function CardsController() {
 
+    this.shuffleIt = function shuffleIt(){
+      var targetEl = document.getElementById( 'deck' ),
+          ul = MG.utils.shuffleDOM(targetEl);
+      $('#deck').html('').append(ul);
+    };
+
+    this.newGame = function newGame(){
+      $('#deck').find('.card').removeClass('founded flipped');
+      this.shuffleIt();
+    };
+
+    this.checkWinCondition = function checkWinCondition(){
+      var winCondition = $('#deck').find('.card.founded').length === 30;
+      if(winCondition){
+        alert('Congratulations!!! A new game will begin in 5 seconds...');
+        setTimeout(  this.newGame.bind(this) , 5000 );
+      }
+    }
+
     this.init = function init() {
+
+      this.shuffleIt();
+
       var targetEl = document.getElementById( 'deck' );
       // Adding event handlers
       MG.utils.addEvent(targetEl, "click", function(evt){
@@ -15,6 +37,7 @@
           if(this.checkForReveals() === true){
             this.selectCard(evt);
             this.stats();
+            this.checkWinCondition();
           }
         }
 
@@ -42,11 +65,6 @@
     
     this.stats = function stats(){
       console.log( playerStats );
-      /*
-      var flips = $('#deck').find('.flipped').length;
-      var founds = $('#deck').find('.founded').length;
-      console.log('flips: '+flips+' founds: '+founds);
-      */
     };
 
     this.deselectAllFlippedCards = function(){
@@ -54,7 +72,6 @@
     };
 
     this.compareCard = function compareCard( cardName, cardId ){
-      console.log('comparing: '+cardName+' with: '+oldcard.cardName);
       cardHistory.push( cardId+':'+cardName );
 
       if(oldcard.cardName === null){
@@ -62,6 +79,7 @@
         oldcard.unique = cardId;
       } else {
         if(oldcard.cardName === cardName){
+          alert('Good Match!');
           /*
           playerStats.pairs++;
           if(playerStats.inStreak){
@@ -94,8 +112,6 @@
         oldcard.cardName = null;
         oldcard.unique = null;
       }
-      //cardCache[ cardId ] = cardName;
-      //console.log( 'cardCache['+cardId+'] = '+cardName);
     };
 
 
@@ -105,11 +121,9 @@
     };
 
     this.selectCard = function selectCard(evt) {
-      //console.log(this, evt)
-
-      var el = evt.target;
-      var cardName = $(el.parentNode).data('cardName');
-      var cardId = $(el.parentNode).data('cardUnique');
+      var el = evt.target,
+          cardName = $(el.parentNode).data('cardName'),
+          cardId = $(el.parentNode).data('cardUnique');
 
       if(cardId !== oldcard.unique){
         $(el.parentNode).addClass('flipped');
