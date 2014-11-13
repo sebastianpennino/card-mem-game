@@ -5,7 +5,7 @@ describe("Utilities Suite", function() {
         expect( myMemGame.utils ).not.toBeNull();
     });
 
-    it("isEmptyVal Method", function() {
+    it("testing isEmptyVal Method", function() {
         expect(  myMemGame.utils.isEmptyVal()      ).toBeTruthy();
         expect(  myMemGame.utils.isEmptyVal("")    ).toBeTruthy();
         expect(  myMemGame.utils.isEmptyVal(null)  ).toBeTruthy();
@@ -16,7 +16,7 @@ describe("Utilities Suite", function() {
         expect(  myMemGame.utils.isEmptyVal(false) ).toBeFalsy();
     });
 
-    it("exists Method", function() {
+    it("testing exists Method", function() {
         expect(  myMemGame.utils.exists()      ).toBeFalsy();
         expect(  myMemGame.utils.exists(null)  ).toBeFalsy();
         expect(  myMemGame.utils.exists("")    ).toBeTruthy();
