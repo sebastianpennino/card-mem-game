@@ -26,10 +26,11 @@ This project is an experiment/exercise for myself using a TDD approach on a semi
 
 1. Clone the git repo
 2. Download XAMPP for windows, copy the cloned repo to the htdocs folder using "memGame" as folder name
-3. Run the XAMPP server with your preferred settings
-4. In your preferred browser bar just type: http://localhost/memGame/
+3. Make sure that in the memGame folder contain the root files (the ones showing on the repo, like index.html)
+4. Run the XAMPP server with your preferred settings
+5. Using your preferred browser, go to: http://localhost/memGame/
 
 
 ## Running the unit test
 
-After installation simply go to the http://localhost/memGame/ and use the link in the top right corner (go to tests)
+After installation simply go to the http://localhost/memGame/ and use the link in the top right corner ("go to tests").
