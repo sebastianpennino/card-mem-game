@@ -69,6 +69,76 @@ myMemGame.utils = {
         this.addEvent(el, ev, fn);
     },
 
+
+    /**
+     * Shuffles DOM elements and re-introduce them to the DOM.
+     *
+     * Important: Not from my authorship, this piece of 
+     * code belongs to James Paldosey. I've just merely
+     * adapted it to use as a method.
+     *
+     * Source: http://james.padolsey.com/javascript/shuffling-the-dom/ 
+     *
+     * Notes: it may need to be refactored to use domfragment
+     * 
+     * @param {HTMLCollection} elems - DOM element collection
+     */
+    shuffleDOM_OLD: function(elems) {
+ 
+        var allElems = (function(){
+            var ret = [], 
+                len = elems.length;
+            while (len--) { 
+                ret[ret.length] = elems[len];
+            }
+            return ret;
+        })();
+     
+        var shuffled = (function(){
+            var len = allElems.length, 
+                ret = [];
+            
+            while (len--) {
+                var random = Math.floor(Math.random() * allElems.length),
+                    randEl = allElems[random].cloneNode(true);
+                allElems.splice(random, 1);
+                ret[ret.length] = randEl;
+            }
+            return ret; 
+        })(), 
+        len = elems.length;
+     
+        while (len--) {
+            // this may need to be refactored to use domfragment
+            // or maybe just return the shuffled array?
+            elems[len].parentNode.insertBefore(shuffled[len], elems[len].nextSibling);
+            elems[len].parentNode.removeChild(elems[len]);
+        }
+ 
+    },
+
+    /**
+     * Shuffles a DOM LIST and returns the shuffled version
+     *
+     * Important: Not from my authorship, this piece of 
+     * belongs to "Yair Even Or", te code was adapted from
+     * these two sources:
+     *
+     * Source 1: http://bit.ly/1sG4cAU
+     * Source 2: http://jsbin.com/jiboxuru/1/edit?html,css,js,output
+     *
+     * @param {HTMLCollection} ul - DOM list
+     * @returns {HTMLCollection} ul - same element with shuffled children
+     */
+    shuffleDOM: function( ul ){
+        var temp = ul.cloneNode(true),    // clone the list
+            i = temp.children.length + 1; // shuffle the cloned list (better performance)
+        for (i; i--; ){
+            temp.appendChild( temp.children[Math.random() * i |0] );
+        }
+        return temp;
+    },
+
     fakeMethod : function(){
         console.log('Hi, im just a fake method for the first unit test!');
     }
