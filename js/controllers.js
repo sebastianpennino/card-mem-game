@@ -2,14 +2,6 @@ myMemGame.CardsController = (function (window, MG, undefined) {
     "use strict";
 
     var props = {
-      cardHistory : [],   // Will store player moves, for future stats
-      playerStats : {
-        pairs        : 0, // Number of pairs
-        misses       : 0, // Number of misses
-        streak       : 0, // Continuous matchs
-        inStreak     : 0, // Currently in a streak?
-        maxStreak    : 0  // Max score of steak
-      },
       selectors : {
         main : document.getElementById('deck')
       },
@@ -23,9 +15,8 @@ myMemGame.CardsController = (function (window, MG, undefined) {
     };
 
     methods.shuffleIt = function () {
-      var deck = props.selectors.main,
-            ul = MG.utils.shuffleDOM( deck );
-      // $('#deck').html('').append(ul);
+      var deck = props.selectors.main
+          , ul = MG.utils.shuffleDOM( deck );
       deck.innerHTML = '';
       deck.appendChild(ul);
     };
@@ -37,7 +28,6 @@ myMemGame.CardsController = (function (window, MG, undefined) {
     };
 
     methods.checkWinCondition = function () {
-      //var win = $('#deck').find('.card.founded').length === 30;
       var win = props.selectors.main.querySelectorAll('.card.founded').length === 30;
       if(win){
         alert('Congratulations!!! A new game will begin in 5 seconds...');
@@ -46,16 +36,18 @@ myMemGame.CardsController = (function (window, MG, undefined) {
     };
 
     methods.initialize = function () {
+      // 1- Shuffling the cards
       methods.shuffleIt();
-      // Adding event handlers
+
+      // 2- Adding event handlers
       MG.utils.addEvent( props.selectors.main , "click", function(evt){
         evt.preventDefault();
-        // Basic event delegation
+        
+        // 3- Basic event delegation
         if(evt.target && evt.target.nodeName == "A"){
-          // If 2 or less cards are revealed
+          // 4- If less than 2 "flipped" cards, proceed
           if(methods.checkForReveals() === true){
             methods.selectCard(evt);
-            //methods.stats();
             methods.checkWinCondition();
           }
         }
@@ -68,21 +60,16 @@ myMemGame.CardsController = (function (window, MG, undefined) {
       return flips >= 2 ? false : true ;
     };
 
-    methods.stats = function () {
-      console.log( props.playerStats );
-    };
-
     methods.deselectAllFlippedCards = function  () {
       $('#deck').find('.flipped').not('.founded').removeClass('flipped');
     };
 
     methods.compareCard = function ( cardName, cardId ){
       var oldcard = props.oldcard;
-      props.cardHistory.push( cardId+':'+cardName );
 
       if(oldcard.cardName === null){
         oldcard.cardName = cardName;
-        oldcard.unique = cardId;
+        oldcard.unique   = cardId;
 
       } else {
 
@@ -97,13 +84,14 @@ myMemGame.CardsController = (function (window, MG, undefined) {
         oldcard.cardName = null;
         oldcard.unique = null;
       }
+
     };
 
     methods.selectCard = function (evt) {
-      var el       = evt.target,
-          oldcard  = props.oldcard,
-          cardName = $(el.parentNode).data('cardName'),
-          cardId   = $(el.parentNode).data('cardUnique');
+      var el       = evt.target
+        , oldcard  = props.oldcard
+        , cardName = el.parentNode.dataset.cardName
+        , cardId   = el.parentNode.dataset.cardUnique;
 
       if(cardId !== oldcard.unique){
         $(el.parentNode).addClass('flipped');
@@ -112,7 +100,7 @@ myMemGame.CardsController = (function (window, MG, undefined) {
 
     };
 
-    // Exposed methods
+    // Exposed API
     return {
         init: methods.initialize
     };
